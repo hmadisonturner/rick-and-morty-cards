@@ -14,8 +14,9 @@ import { ApolloClient,
          gql
        } from '@apollo/client';
 import reportWebVitals from './reportWebVitals';
+import CssBaseline from '@material-ui/core/CssBaseline';
 import App from './App';
-//import './index.css';
+import './index.css';
 
 const client = new ApolloClient({
   uri: 'https://rickandmortyapi.com/graphql',
@@ -45,7 +46,9 @@ client.query({
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <CssBaseline>
+      <App />
+    </CssBaseline>
   </React.StrictMode>,
   document.getElementById('root')
 );
