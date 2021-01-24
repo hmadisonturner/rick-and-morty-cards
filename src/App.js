@@ -1,28 +1,42 @@
 import React from 'react';
+import { HashRouter as Router,
+         Switch,
+         Route,
+       } from 'react-router-dom';
 import AppBar from './Components/AppBar';
 import Container from '@material-ui/core/Container';
-import ResponsiveDrawer from './Components/ResponsiveDrawer';
 import { makeStyles } from '@material-ui/core/styles';
+import Home from './Components/Home';
+import Characters from './Components/Characters';
+
 
 const useStyles = makeStyles((theme) => ({
-  appBar: {
-    zIndex: theme.zIndex.drawer + 1,
-  },
-  drawer: {
-    zIndex: 0,
-  },
+  container: {
+    position: "relative",
+    top: 150,
+    left: 250,
+  }
 }));
 
 function App() {
   const classes = useStyles();
-  const [mobileOpen, setMobileOpen] = React.useState(false);
   return (
 
+    <Router>
     <div>
-      <AppBar className={classes.appBar} />
-      <ResponsiveDrawer className={classes.drawer} />
-      <Container />
+      <AppBar />
+      <Container className={classes.container}>
+        <Switch>
+          <Route default exact path="/">
+            <Home />
+          </Route>
+          <Route exact path="/Characters">
+            <Characters />
+          </Route>
+        </Switch>
+    </Container>
     </div>
+    </Router>
   );
 }
 

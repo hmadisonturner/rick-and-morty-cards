@@ -2,18 +2,27 @@ import React from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
-import Badge from '@material-ui/core/Badge';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import MailIcon from '@material-ui/icons/Mail';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import MoreIcon from '@material-ui/icons/MoreVert';
+import Divider from '@material-ui/core/Divider';
+import Drawer from '@material-ui/core/Drawer';
+import Hidden from '@material-ui/core/Hidden';
+import IconButton from '@material-ui/core/IconButton';
+import PeopleIcon from '@material-ui/icons/People';
+import LocationCityIcon from '@material-ui/icons/LocationCity';
+import TvIcon from '@material-ui/icons/Tv';
+import StarOutlineIcon from '@material-ui/icons/StarOutline';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import { useHistory } from 'react-router-dom';
+         
+
+const drawerWidth = '28ch';
+
 const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
@@ -64,7 +73,27 @@ const useStyles = makeStyles((theme) => ({
       width: '20ch',
     },
   },
+  appBar: {
+    zIndex: theme.zIndex.drawer + 1,
+    //zIndex: 1,
+  },
+  drawer: {
+    [theme.breakpoints.up('sm')]: {
+      width: drawerWidth,
+      flexShrink: 0,
+    },
+  },
+  // necessary for content to be below app bar
+  toolbar: theme.mixins.toolbar,
+  drawerPaper: {
+    width: drawerWidth,
+  },
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing(3),
+  },
 }));
+
 export default function PrimarySearchAppBar(props) {
   const classes = useStyles();
 
@@ -72,12 +101,45 @@ export default function PrimarySearchAppBar(props) {
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
-    console.log(mobileOpen? 'open' : 'closed')
   };
+
+  const history = useHistory();
+  const goToCharacters = () => history.push('/Characters');
+
+  const drawer = (
+    <div>
+      <div className={classes.toolbar} />
+      <Divider />
+      <List>
+    {/*<ListItem component={Link} to='/Characters'>*/}
+          <ListItem button onClick={goToCharacters}>
+            <ListItemIcon><PeopleIcon /></ListItemIcon>
+            <ListItemText primary="Characters" />
+          </ListItem>
+          <ListItem button>
+            <ListItemIcon><TvIcon /></ListItemIcon>
+            <ListItemText primary="Episodes" />
+          </ListItem>
+          <ListItem button>
+            <ListItemIcon><LocationCityIcon /></ListItemIcon>
+            <ListItemText primary="Locations" />
+          </ListItem>
+      </List>
+      <Divider />
+      <List>
+          <ListItem button>
+            <ListItemIcon><StarOutlineIcon /></ListItemIcon>
+            <ListItemText primary="Favorites" />
+          </ListItem>
+      </List>
+    </div>
+  );
+
   return (
     <div className={classes.grow}>
-      <AppBar position="fixed">
+      <AppBar className={classes.appBar} position="fixed">
         <Toolbar>
+        <Hidden smUp implementation="css">
           <IconButton
             edge="start"
             className={classes.menuButton}
@@ -87,6 +149,7 @@ export default function PrimarySearchAppBar(props) {
           >
             <MenuIcon />
           </IconButton>
+    </Hidden>
           <Typography className={classes.title} variant="h6" noWrap>
            Rick and Morty Cards 
           </Typography>
@@ -105,6 +168,35 @@ export default function PrimarySearchAppBar(props) {
           </div>
         </Toolbar>
       </AppBar>
+      <nav className={classes.drawer}>
+        <Hidden smUp implementation="css">
+          <Drawer
+            variant="temporary"
+            anchor="left"
+            open={mobileOpen}
+            onClose={handleDrawerToggle}
+            classes={{
+              paper: classes.drawerPaper,
+            }}
+            ModalProps={{
+              keepMounted: true, 
+            }}
+          >
+            {drawer}
+          </Drawer>
+        </Hidden>
+        <Hidden xsDown implementation="css">
+          <Drawer
+            classes={{
+              paper: classes.drawerPaper,
+            }}
+            variant="permanent"
+            open
+          >
+            {drawer}
+          </Drawer>
+        </Hidden>
+      </nav>
     </div>
   );
 }
