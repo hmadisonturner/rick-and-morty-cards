@@ -94,7 +94,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PrimarySearchAppBar(props) {
+export default function AppFrame(props) {
   const classes = useStyles();
 
   const [mobileOpen, setMobileOpen] = React.useState(props.mobileOpen);

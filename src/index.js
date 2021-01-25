@@ -8,10 +8,8 @@ import { ApolloClient,
          InMemoryCache,
          gql
        } from '@apollo/client';
-import reportWebVitals from './reportWebVitals';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import App from './App';
-import './index.css';
+import App from './Components/App';
 
 const client = new ApolloClient({
   uri: 'https://rickandmortyapi.com/graphql',
@@ -47,6 +45,4 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root')
 );
-
-reportWebVitals(console.log);
 
