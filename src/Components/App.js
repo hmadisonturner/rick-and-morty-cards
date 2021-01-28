@@ -7,7 +7,7 @@ import { HashRouter as Router,
 import Container from '@material-ui/core/Container';
 import AppFrame from './AppFrame';
 import Home from './Home';
-import Characters from './Characters';
+import Page from './Page';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -28,7 +28,7 @@ export default function App() {
             <Home />
           </Route>
           <Route exact path="/Characters">
-            <Characters />
+            <Page type="characters"/>
           </Route>
         </Switch>
       </Container>
