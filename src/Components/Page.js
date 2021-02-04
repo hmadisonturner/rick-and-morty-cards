@@ -1,28 +1,26 @@
-import React from 'react';
-import { useQuery,
-         gql
-       } from '@apollo/client';
-import Card from './Card';
+import React from "react";
+import { useQuery, gql } from "@apollo/client";
+import Card from "./Card";
 
-  const GET_STUFF = gql`
-    query {
-      characters(page: 2, filter: { name: "rick" }) {
-        info {
-          count
-        }
-        results {
-          id
-          name
-        }
+const GET_STUFF = gql`
+  query {
+    characters(page: 2, filter: { name: "rick" }) {
+      info {
+        count
       }
-      location(id: 1) {
+      results {
         id
-      }
-      episodesByIds(ids: [1, 2]) {
-        id
+        name
       }
     }
-  `
+    location(id: 1) {
+      id
+    }
+    episodesByIds(ids: [1, 2]) {
+      id
+    }
+  }
+`;
 //}).then(result => console.log(result))
 
 export default function Page(props) {
@@ -55,18 +53,17 @@ export default function Page(props) {
     }
   `;
 
-
-
   const { data } = useQuery(GET_MORE);
   return (
     <div>
       <h1>{props.type.toUpperCase()}</h1>
-    {data && (
-      <>
-        {data.characters.results.map((character) => <Card character={ character } />)}
-      </>
-    )}
-    </div> 
-  )
+      {data && (
+        <>
+          {data.characters.results.map((character) => (
+            <Card character={character} />
+          ))}
+        </>
+      )}
+    </div>
+  );
 }
-

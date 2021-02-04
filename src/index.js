@@ -1,17 +1,13 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { ApolloClient,
-         ApolloProvider,
-         InMemoryCache,
-       } from '@apollo/client';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import App from './Components/App';
+import React from "react";
+import ReactDOM from "react-dom";
+import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import App from "./Components/App";
 
 const client = new ApolloClient({
-  uri: 'https://rickandmortyapi.com/graphql',
-  cache: new InMemoryCache()
+  uri: "https://rickandmortyapi.com/graphql",
+  cache: new InMemoryCache(),
 });
-
 
 ReactDOM.render(
   <React.StrictMode>
@@ -21,6 +17,5 @@ ReactDOM.render(
       </CssBaseline>
     </ApolloProvider>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
-

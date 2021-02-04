@@ -1,38 +1,34 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { HashRouter as Router,
-         Switch,
-         Route,
-       } from 'react-router-dom';
-import Container from '@material-ui/core/Container';
-import AppFrame from './AppFrame';
-import Home from './Home';
-import Page from './Page';
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import { HashRouter as Router, Switch, Route } from "react-router-dom";
+import Container from "@material-ui/core/Container";
+import AppFrame from "./AppFrame";
+import Home from "./Home";
+import Page from "./Page";
 
 const useStyles = makeStyles((theme) => ({
   container: {
     position: "relative",
     top: 150,
     left: 250,
-  }
+  },
 }));
 
 export default function App() {
   const classes = useStyles();
   return (
     <Router>
-      <AppFrame/>
+      <AppFrame />
       <Container className={classes.container}>
         <Switch>
           <Route default exact path="/">
             <Home />
           </Route>
           <Route exact path="/Characters">
-            <Page type="characters"/>
+            <Page type="characters" />
           </Route>
         </Switch>
       </Container>
     </Router>
   );
 }
-
