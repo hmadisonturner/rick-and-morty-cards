@@ -1,69 +1,64 @@
-import React from "react";
+import React, { useState } from "react";
 import { useQuery, gql } from "@apollo/client";
 import Card from "./Card";
 
-const GET_STUFF = gql`
-  query {
-    characters(page: 2, filter: { name: "rick" }) {
-      info {
-        count
-      }
+const GET_CHARACTERS = gql`
+  query GetCharacters($page: Int!) {
+    characters(page: $page) {
       results {
         id
         name
+        status
+        species
+        type
+        origin {
+          name
+        }
+        location {
+          name
+        }
+        episode {
+          name
+          episode
+        }
       }
-    }
-    location(id: 1) {
-      id
-    }
-    episodesByIds(ids: [1, 2]) {
-      id
     }
   }
 `;
-//}).then(result => console.log(result))
 
 export default function Page(props) {
-  let page = 1;
+  const [page, setPage] = useState(1);
+  const { loading, error, data, fetchMore } = useQuery(GET_CHARACTERS, {
+    variables: { page },
+  });
 
-  const GET_MORE = gql`
-    query {
-      characters ( page: ${page} ) {
-        info {
-          next
-        }
-        results {
-          id
-          name
-          status
-          species
-          type
-          origin {
-            name
-          }
-          location {
-            name
-          }
-          episode {
-            name
-            episode
-          }
-        }
-      }
-    }
-  `;
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error fetching data</p>;
 
-  const { data } = useQuery(GET_MORE);
   return (
     <div>
       <h1>{props.type.toUpperCase()}</h1>
       {data && (
         <>
           {data.characters.results.map((character) => (
-            <Card character={character} />
+            <Card key={character.id} character={character} />
           ))}
         </>
       )}
+      <button
+        onClick={() => {
+          setPage(page + 1);
+          fetchMore({
+            variables: {
+              page: page,
+            },
+          });
+          console.log(data);
+        }}
+      >
+        {" "}
+        Load More{" "}
+      </button>
     </div>
   );
 }
