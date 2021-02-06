@@ -1,30 +1,7 @@
 import React, { useState } from "react";
-import { useQuery, gql } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import Card from "./Card";
-
-const GET_CHARACTERS = gql`
-  query GetCharacters($page: Int!) {
-    characters(page: $page) {
-      results {
-        id
-        name
-        status
-        species
-        type
-        origin {
-          name
-        }
-        location {
-          name
-        }
-        episode {
-          name
-          episode
-        }
-      }
-    }
-  }
-`;
+import { GET_CHARACTERS } from "../Queries/GetCharacters.js"
 
 export default function Page(props) {
   const [page, setPage] = useState(1);
