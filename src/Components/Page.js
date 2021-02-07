@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useQuery } from "@apollo/client";
-import Card from "./Card";
+import Grid from '@material-ui/core/Grid';
+import CharacterCard from "./CharacterCard";
 import { GET_CHARACTERS } from "../Queries/GetCharacters.js"
 
 export default function Page(props) {
@@ -15,13 +16,15 @@ export default function Page(props) {
   return (
     <div>
       <h1>{props.type.toUpperCase()}</h1>
+    <Grid container spacing={3}>
       {data && (
         <>
           {data.characters.results.map((character) => (
-            <Card key={character.id} character={character} />
+            <CharacterCard key={character.id} character={character} />
           ))}
         </>
       )}
+    </Grid>
       <button
         onClick={() => {
           setPage(page + 1);
