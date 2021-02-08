@@ -16,7 +16,7 @@ export default function Page(props) {
   return (
     <div>
       <h1>{props.type.toUpperCase()}</h1>
-    <Grid container spacing={3}>
+    <Grid container spacing={1}>
       {data && (
         <>
           {data.characters.results.map((character) => (
