@@ -1,1 +1,1 @@
-A demo app using React, Material-UI and GraphQL
+An example using ApolloClient/ApolloProvider GraphQL with React and Material-UI.
